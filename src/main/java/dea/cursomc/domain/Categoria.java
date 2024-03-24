@@ -3,9 +3,18 @@ package dea.cursomc.domain;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+
+@Entity //mapeamento da classe, indicando que essa classe é uma entidade da classe JPA
 public class Categoria implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY) //Definindo a estratégia de geração automática dos id's das minhas categorias. IDENTITY funciona com h2 e com varios outros bancos de dados.
 	private Integer id;
 	private String nome;
 	
