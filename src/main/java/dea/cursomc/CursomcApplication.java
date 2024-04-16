@@ -35,7 +35,7 @@ import dea.cursomc.repositories.ProdutoRepository;
 public class CursomcApplication implements CommandLineRunner {
 	
 	@Autowired
-	private CategoriaRepository categoriaRepository; //dependencia
+	private CategoriaRepository categoriaRepository; //dependência
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	@Autowired
@@ -109,7 +109,7 @@ public class CursomcApplication implements CommandLineRunner {
 		
 		cli1.getPedido().addAll(Arrays.asList(ped1, ped2));
 		
-		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, null);
+		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);
 		
 		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2017 00:00"), null);
@@ -130,7 +130,6 @@ public class CursomcApplication implements CommandLineRunner {
 		p3.getItens().addAll(Arrays.asList(ip2));
 		
 		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
-		
 	}
 
 }
