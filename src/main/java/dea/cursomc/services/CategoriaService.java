@@ -3,10 +3,12 @@ package dea.cursomc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import dea.cursomc.domain.Categoria;
 import dea.cursomc.repositories.CategoriaRepository;
+import dea.cursomc.services.exceptions.DataIntegrityException;
 import dea.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -31,5 +33,16 @@ public class CategoriaService {
 	}
 	
 	//Os metodos insert e update são iguais, porem quando é para inserir, o objeto verifica se o id é null. Se não for ele não cria. No caso do update ele atualiza e verifica se o id já existe com o metodo find.
+	
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);
+		}catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}
+		
+	}
+	
 	
 }
