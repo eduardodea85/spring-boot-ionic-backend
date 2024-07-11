@@ -26,7 +26,7 @@ public class CategoriaResource {
 	//Criar método básico
 	//@RequestMapping(value="/{id}", method=RequestMethod.GET) //Para ser uma função REST, precisa associar com uma das funções do http.
 	@GetMapping("/{id}") //trocado por causa da vesão 17
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
 		Categoria obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
 				
@@ -41,5 +41,10 @@ public class CategoriaResource {
 	
 	//O protocolo http, quando está se inserindo um novo recurso, ele tem um código de resposta particular para isso. Procurar no google, http status code, ex, quando a requisição ocorre com sucesso, ela vai ter um código 201. Quando criar um novo recurso, precisa criar a URI do objeto criado.
 	
-	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) {
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
 }

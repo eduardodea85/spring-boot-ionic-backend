@@ -25,4 +25,11 @@ public class CategoriaService {
 		return repo.save(obj);
 	}
 	
+	public Categoria update(Categoria obj) {
+		find(obj.getId());
+		return repo.save(obj);
+	}
+	
+	//Os metodos insert e update são iguais, porem quando é para inserir, o objeto verifica se o id é null. Se não for ele não cria. No caso do update ele atualiza e verifica se o id já existe com o metodo find.
+	
 }
