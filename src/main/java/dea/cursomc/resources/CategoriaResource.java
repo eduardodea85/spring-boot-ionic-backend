@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import dea.cursomc.domain.Categoria;
 import dea.cursomc.dto.CategoriaDTO;
 import dea.cursomc.services.CategoriaService;
+import jakarta.validation.Valid;
 
 @RestController //anotação indica que é uma classa que usa o controlador REST
 @RequestMapping(value="/categorias") //A classe responde pelo caminho do endpoint REST
@@ -38,7 +39,8 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Categoria obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {
+		Categoria obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -47,7 +49,8 @@ public class CategoriaResource {
 	//O protocolo http, quando está se inserindo um novo recurso, ele tem um código de resposta particular para isso. Procurar no google, http status code, ex, quando a requisição ocorre com sucesso, ela vai ter um código 201. Quando criar um novo recurso, precisa criar a URI do objeto criado.
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO objDto, @PathVariable Integer id) {
+		Categoria obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
