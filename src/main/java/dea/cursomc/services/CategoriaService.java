@@ -32,10 +32,13 @@ public class CategoriaService {
 		return repo.save(obj);
 	}
 	
+	
 	public Categoria update(Categoria obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Categoria newObj = find(obj.getId());//instancia o objeto new a partir do banco de dados usando o find
+		updateData(newObj, obj); //Atualizado os dados do objeto, com o objeto que foi enviado na requisição em update(Cliente obj)
+		return repo.save(newObj); //Salva o objeto no banco de dados
 	}
+	
 	
 	//Os metodos insert e update são iguais, porem quando é para inserir, o objeto verifica se o id é null. Se não for ele não cria. No caso do update ele atualiza e verifica se o id já existe com o metodo find.
 	
@@ -60,6 +63,10 @@ public class CategoriaService {
 	
 	public Categoria fromDTO(CategoriaDTO objDto) {
 		return new Categoria(objDto.getId(), objDto.getNome());
+	}
+	
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
 	}
 	
 	

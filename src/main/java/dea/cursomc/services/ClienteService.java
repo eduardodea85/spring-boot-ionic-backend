@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.IncorrectUpdateSemanticsDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
@@ -30,9 +29,9 @@ public class ClienteService {
 	}
 
 	public Cliente update(Cliente obj) {
-		Cliente newObj = find(obj.getId());
-		updateData(newObj, obj);
-		return repo.save(newObj);
+		Cliente newObj = find(obj.getId());//instancia o objeto new a partir do banco de dados usando o find
+		updateData(newObj, obj); //Atualizado os dados do objeto, com o objeto que foi enviado na requisição em update(Cliente obj)
+		return repo.save(newObj); //Salva o objeto no banco de dados
 	}
 
 	// Os metodos insert e update são iguais, porem quando é para inserir, o objeto
