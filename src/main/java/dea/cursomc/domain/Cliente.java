@@ -27,12 +27,12 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	
+
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
 
-	@OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	@ElementCollection
@@ -52,7 +52,8 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = (tipo==null) ? null : tipo.getCod(); //Se o tipo for nulo, vou atribuir nulo, caso contrário atribuo tipo.getCod.
+		this.tipo = (tipo == null) ? null : tipo.getCod(); // Se o tipo for nulo, vou atribuir nulo, caso contrário
+															// atribuo tipo.getCod.
 	}
 
 	public Integer getId() {
