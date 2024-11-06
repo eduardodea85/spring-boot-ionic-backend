@@ -30,6 +30,7 @@ public class ProdutoService {
 				"Produto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
 	}
 	
+	//Busca de produtos por nome e categorias
 	public Page<Produto> search(String nome, List<Integer> ids, Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		List<Categoria> categorias = categoriaRepository.findAllById(ids);
